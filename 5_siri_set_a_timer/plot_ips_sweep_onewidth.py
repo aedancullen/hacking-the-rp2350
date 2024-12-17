@@ -65,12 +65,12 @@ for i, delay in enumerate(delays):
         prob_field_modified = n_field_modified / len(regdumps[0]) # ewww, assuming first is perfect
         z_field_modified[j, i] = prob_field_modified
 
-plt.rcParams['axes.spines.left'] = False
-plt.rcParams['axes.spines.right'] = False
-plt.rcParams['axes.spines.top'] = False
-plt.rcParams['axes.spines.bottom'] = False
+plt.rcParams["axes.spines.left"] = False
+plt.rcParams["axes.spines.right"] = False
+plt.rcParams["axes.spines.top"] = False
+plt.rcParams["axes.spines.bottom"] = False
 
-plt.style.use('dark_background')
+plt.style.use("dark_background")
 
 cm1 = mpl.colors.LinearSegmentedColormap.from_list("", [(1, 0, 0, 0), (1, 0, 0, 1)])
 cm2 = mpl.colors.LinearSegmentedColormap.from_list("", [(0, 1, 0, 0), (0, 1, 0, 1)])
@@ -78,13 +78,17 @@ cm3 = mpl.colors.LinearSegmentedColormap.from_list("", [(0, 0, 1, 0), (0, 0, 1, 
 
 fig, ax = plt.subplots()
 ax.set_axisbelow(True)
+
 ax.pcolormesh(x, y, z_not_up, shading="nearest", cmap=cm1)
 ax.pcolormesh(x, y, z_dump_failed, shading="nearest", cmap=cm2)
 ax.pcolormesh(x, y, z_field_modified, shading="nearest", cmap=cm3)
+
 ax.xaxis.set_major_locator(ticker.MultipleLocator(10))
 ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
+
 ax.set_yticks([x+0.5 for x in ax.get_yticks()[:-1]], minor=True)
 ax.grid(axis="y", which="minor", color=(0.2, 0.2, 0.2))
+
 ax.tick_params(axis="y", length=0)
 ax.tick_params(axis="y", which="minor", length=0)
 ax.tick_params(axis="x", length=10)
