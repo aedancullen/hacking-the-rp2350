@@ -167,7 +167,6 @@ class IPSSweepCommand(gdb.Command):
             if not args.apinfo:
                 pickle.dump((delays, widths, up_rates, dump_rates, regdumps), fh)
             else:
-                print(apinfos)
                 pickle.dump((delays, widths, up_rates, dump_rates, regdumps, apinfos), fh)
 
 IPSSweepCommand()
