@@ -7,6 +7,8 @@ M33_GDB_TARGET = """target remote :2331"""
 RV_GDB_SERVER = """../src/openocd -f interface/jlink.cfg -c "adapter speed 5000" -c "set USE_CORE 0" -f target/rp2350-riscv.cfg"""
 RV_GDB_TARGET = """target remote :3333"""
 
+COMMANDER = """JLinkExe -device CORTEX-M33 -if SWD -speed 4000"""
+
 import shlex
 import argparse
 import socket
@@ -37,6 +39,7 @@ class IPSSweepCommand(gdb.Command):
 
         self.parser.add_argument("--rv", help="expect RISC-V to come up, not M33", action="store_true")
         self.parser.add_argument("--verbose", help="show full output of GDB server", action="store_true")
+        self.parser.add_argument("--apinfo", help="also collect debug AP addresses", action="store_true")
 
     def complete(self, text, word):
         return gdb.COMPLETE_SYMBOL
@@ -69,6 +72,33 @@ class IPSSweepCommand(gdb.Command):
         key_valid_reg = i.read_memory(0x40120000 + 0x14c, 1*4).tobytes()
         return sw_lock_regs + critical_reg + key_valid_reg
 
+    def get_apinfo(self):
+        proc = subprocess.Popen(COMMANDER, shell=True,
+                                stdin=subprocess.PIPE,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        proc.stdin.write(b"connect\n")
+        proc.stdin.flush()
+
+        lastlines = []
+        line = proc.stdout.readline()
+        while not b"Iterating through AP map" in line:
+            if b"Error" in line:
+                break
+            lastlines.append(line)
+            if len(lastlines) > 2:
+                lastlines.pop(0)
+            line = proc.stdout.readline()
+
+        proc.terminate()
+        proc.wait()
+
+        aps = []
+        for lastline in lastlines:
+            if b"APAddr" in lastline:
+                aps.append(lastline)
+        return aps
+
     def invoke(self, args, from_tty):
         try:
             args = self.parser.parse_args(shlex.split(args))
@@ -83,6 +113,7 @@ class IPSSweepCommand(gdb.Command):
         up_rates = []
         dump_rates = []
         regdumps = []
+        apinfos = []
 
         delay = args.minD
         while delay <= args.maxD:
@@ -92,6 +123,7 @@ class IPSSweepCommand(gdb.Command):
                 up_success = 0
                 dump_success = 0
                 regdump = []
+                apinfo = []
                 for i in range(args.n):
 
                     self.waveforms_send_attempt(sock, delay, width)
@@ -118,16 +150,24 @@ class IPSSweepCommand(gdb.Command):
                     else:
                         print(f"{delay} {width} #{i+1} not up")
 
+                    if args.apinfo:
+                        apinfo.append(self.get_apinfo())
+
                 delays.append(delay)
                 widths.append(width)
                 up_rates.append(up_success/args.n)
                 dump_rates.append(dump_success/args.n)
                 regdumps.append(regdump)
+                apinfos.append(apinfo)
 
                 width += args.stepW
             delay += args.stepD
 
         with open(args.outfile, "wb") as fh:
-            pickle.dump((delays, widths, up_rates, dump_rates, regdumps), fh)
+            if not args.apinfo:
+                pickle.dump((delays, widths, up_rates, dump_rates, regdumps), fh)
+            else:
+                print(apinfos)
+                pickle.dump((delays, widths, up_rates, dump_rates, regdumps, apinfos), fh)
 
 IPSSweepCommand()
