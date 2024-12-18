@@ -29,18 +29,35 @@ for i in range(8):
     FIELD_MASKS.append(0b1 << i)
 
 with open(sys.argv[1], "rb") as fh:
-    delays, widths, up_rates, dump_rates, regdumps = pickle.load(fh)
+    lists = pickle.load(fh)
+    if len(lists) == 5:
+        delays, widths, up_rates, dump_rates, regdumps = lists
+        apinfos = []
+    else:
+        delays, widths, up_rates, dump_rates, regdumps, apinfos = lists
 
-GOOD_DUMP = regdumps[0][0] # ewww, assuming first is perfect
+try:
+    GOOD_DUMP = regdumps[0][0]
+except:
+    GOOD_DUMP = None
+
+ALL_APS = []
+
+for sublist in apinfos:
+    for aplist in sublist:
+        for ap in aplist:
+            if not ap in ALL_APS:
+                ALL_APS.append(ap)
 
 x = np.asarray(delays)
-y = np.asarray(FIELD_KEYS)
+y = np.asarray(FIELD_KEYS + ALL_APS)
 
 z_not_up = np.zeros(shape=(y.shape[0], x.shape[0]))
 z_dump_failed = np.zeros(shape=(y.shape[0], x.shape[0]))
 z_field_modified = np.zeros(shape=(y.shape[0], x.shape[0]))
 
 for i, delay in enumerate(delays):
+
     for j, field in enumerate(FIELD_KEYS):
 
         prob_not_up = 1 - up_rates[i]
@@ -50,9 +67,10 @@ for i, delay in enumerate(delays):
         assert prob_dump_failed >= 0
         z_dump_failed[j, i] = prob_dump_failed
 
-        good_data_bytes = GOOD_DUMP[FIELD_IDXS[j] : FIELD_IDXS[j] + 4]
-        good_data = struct.unpack("<i", good_data_bytes)[0]
-        good_data &= FIELD_MASKS[j]
+        if GOOD_DUMP is not None:
+            good_data_bytes = GOOD_DUMP[FIELD_IDXS[j] : FIELD_IDXS[j] + 4]
+            good_data = struct.unpack("<i", good_data_bytes)[0]
+            good_data &= FIELD_MASKS[j]
 
         n_field_modified = 0
         for dump_attempt in regdumps[i]:
@@ -62,8 +80,18 @@ for i, delay in enumerate(delays):
             if field_data != good_data:
                 n_field_modified += 1
 
-        prob_field_modified = n_field_modified / len(regdumps[0]) # ewww, assuming first is perfect
+        prob_field_modified = n_field_modified / len(regdumps[0]) if len(regdumps[0]) != 0 else 0
         z_field_modified[j, i] = prob_field_modified
+
+    for j, ap in enumerate(ALL_APS):
+
+        n_ap_present = 0
+        for aplist_attempt in apinfos[i]:
+            if ap in aplist_attempt:
+                n_ap_present += 1
+
+        prob_ap_present = n_ap_present / len(apinfos[0])
+        z_field_modified[len(FIELD_KEYS) + j, i] = prob_ap_present
 
 plt.rcParams["axes.spines.left"] = False
 plt.rcParams["axes.spines.right"] = False

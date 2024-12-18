@@ -5,9 +5,17 @@ import sys
 import pickle
 
 with open(sys.argv[1], "rb") as fh:
-    delays, widths, up_rates, dump_rates, regdumps = pickle.load(fh)
+    lists = pickle.load(fh)
+    if len(lists) == 5:
+        delays, widths, up_rates, dump_rates, regdumps = lists
+        apinfos = []
+    else:
+        delays, widths, up_rates, dump_rates, regdumps, apinfos = lists
 
-GOOD_DUMP = regdumps[0][0]
+try:
+    GOOD_DUMP = regdumps[0][0]
+except:
+    GOOD_DUMP = None
 
 for i, regdump in enumerate(regdumps):
     for j, dump_attempt in enumerate(regdump):
