@@ -100,16 +100,16 @@ plt.rcParams["axes.spines.bottom"] = False
 
 plt.style.use("dark_background")
 
-cm1 = mpl.colors.LinearSegmentedColormap.from_list("", [(1, 0, 0, 0), (1, 0, 0, 1)])
-cm2 = mpl.colors.LinearSegmentedColormap.from_list("", [(0, 1, 0, 0), (0, 1, 0, 1)])
-cm3 = mpl.colors.LinearSegmentedColormap.from_list("", [(0, 0, 1, 0), (0, 0, 1, 1)])
+c_not_up =          mpl.colors.LinearSegmentedColormap.from_list("", [(1, 0, 0, 0), (1, 0, 0, 1)])
+c_dump_failed =     mpl.colors.LinearSegmentedColormap.from_list("", [(0, 0, 1, 0), (0, 0, 1, 1)])
+c_field_modified =  mpl.colors.LinearSegmentedColormap.from_list("", [(0, 1, 0, 0), (0, 1, 0, 1)])
 
 fig, ax = plt.subplots()
 ax.set_axisbelow(True)
 
-ax.pcolormesh(x, y, z_not_up, shading="nearest", cmap=cm1)
-ax.pcolormesh(x, y, z_dump_failed, shading="nearest", cmap=cm2)
-ax.pcolormesh(x, y, z_field_modified, shading="nearest", cmap=cm3)
+ax.pcolormesh(x, y, z_not_up, shading="nearest", cmap=c_not_up)
+ax.pcolormesh(x, y, z_dump_failed, shading="nearest", cmap=c_dump_failed)
+ax.pcolormesh(x, y, z_field_modified, shading="nearest", cmap=c_field_modified)
 
 ax.xaxis.set_major_locator(ticker.MultipleLocator(10))
 ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
@@ -119,8 +119,8 @@ ax.grid(axis="y", which="minor", color=(0.2, 0.2, 0.2))
 
 ax.tick_params(axis="y", length=0)
 ax.tick_params(axis="y", which="minor", length=0)
-ax.tick_params(axis="x", length=10)
-ax.tick_params(axis="x", which="minor", length=5)
+ax.tick_params(axis="x", length=20)
+ax.tick_params(axis="x", which="minor", length=10)
 
 plt.gca().invert_yaxis()
 plt.show()
