@@ -22,5 +22,5 @@ for i, regdump in enumerate(regdumps):
         if dump_attempt != GOOD_DUMP:
             print("at delay", delays[i], "attempt", j+1)
             for k in range(len(dump_attempt) // 4):
-                print(k, dump_attempt[k*4 : (k+1)*4].hex())
+                print(k, dump_attempt[k*4 : (k+1)*4][::-1].hex())
             input()
