@@ -1,6 +1,11 @@
 # Copyright (c) 2024 Aedan Cullen
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+BGCOLOR = "#0f000a"
+
+AXCOLOR = "#fef2ff"
+AXFONT = "Space Mono"
+
 import sys
 import pickle
 import struct
@@ -14,17 +19,17 @@ FIELD_IDXS = []
 FIELD_MASKS = []
 
 for i in range(64):
-    FIELD_KEYS.append(f"0x{i*4:03x}:    SW_LOCK{i}")
+    FIELD_KEYS.append(f"+0x{i*4:03X}" + f"SW_LOCK{i} ".rjust(15))
     FIELD_IDXS.append(i*4)
     FIELD_MASKS.append(0xffffffff)
 
 for i in range(8):
-    FIELD_KEYS.append(f"0x148:    CRITICAL[{i}]")
+    FIELD_KEYS.append(f"+0x148" + f"CRITICAL[{i}] ".rjust(15))
     FIELD_IDXS.append(64*4)
     FIELD_MASKS.append(0b1 << i)
 
 for i in range(8):
-    FIELD_KEYS.append(f"0x14c:    KEY_VALID[{i}]")
+    FIELD_KEYS.append(f"+0x14C" + f"KEY_VALID[{i}] ".rjust(15))
     FIELD_IDXS.append(65*4)
     FIELD_MASKS.append(0b1 << i)
 
@@ -98,8 +103,6 @@ plt.rcParams["axes.spines.right"] = False
 plt.rcParams["axes.spines.top"] = False
 plt.rcParams["axes.spines.bottom"] = False
 
-plt.style.use("dark_background")
-
 c_not_up =          mpl.colors.LinearSegmentedColormap.from_list("", [(1, 0, 0, 0), (1, 0, 0, 1)])
 c_dump_failed =     mpl.colors.LinearSegmentedColormap.from_list("", [(0, 0, 1, 0), (0, 0, 1, 1)])
 c_field_modified =  mpl.colors.LinearSegmentedColormap.from_list("", [(0, 1, 0, 0), (0, 1, 0, 1)])
@@ -117,10 +120,18 @@ ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
 ax.set_yticks([x+0.5 for x in ax.get_yticks()[:-1]], minor=True)
 ax.grid(axis="y", which="minor", color=(0.2, 0.2, 0.2))
 
-ax.tick_params(axis="y", length=0)
-ax.tick_params(axis="y", which="minor", length=0)
-ax.tick_params(axis="x", length=20)
-ax.tick_params(axis="x", which="minor", length=10)
+ax.tick_params(axis="y", length=0, colors=AXCOLOR)
+ax.tick_params(axis="y", which="minor", length=0, colors=AXCOLOR)
+ax.tick_params(axis="x", length=20, colors=AXCOLOR)
+ax.tick_params(axis="x", which="minor", length=10, colors=AXCOLOR)
 
-plt.gca().invert_yaxis()
+for tick in ax.get_xticklabels():
+    tick.set_fontname(AXFONT)
+for tick in ax.get_yticklabels():
+    tick.set_fontname(AXFONT)
+
+fig.set_facecolor(BGCOLOR)
+ax.set_facecolor(BGCOLOR)
+
+ax.invert_yaxis()
 plt.show()
