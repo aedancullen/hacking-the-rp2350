@@ -1,0 +1,310 @@
+[stanley@greylock ~]$ JLinkExe -device CORTEX-M33 -if SWD -speed 4000
+SEGGER J-Link Commander V8.12 (Compiled Dec 18 2024 15:44:32)
+DLL version V8.12, compiled Dec 18 2024 15:43:28
+
+Connecting to J-Link via USB...O.K.
+Firmware: J-Link V11 compiled Dec  4 2024 17:53:35
+Hardware version: V11.00
+J-Link uptime (since boot): 2d 05h 31m 36s
+S/N: 821010887
+License(s): GDB
+USB speed mode: High speed (480 MBit/s)
+VTref=3.315V
+
+
+Type "connect" to establish a target connection, '?' for help
+J-Link>connect
+Device "CORTEX-M33" selected.
+
+
+Connecting to target via SWD
+Found SW-DP with ID 0x4C013477
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x0000A000): APB-AP (IDR: 0x24770006)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Not an AHB-AP
+Attach to CPU failed. Executing connect under reset.
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x0000A000): APB-AP (IDR: 0x24770006)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Not an AHB-AP
+Could not find core in Coresight setup
+Found SW-DP with ID 0x4C013477
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x0000A000): APB-AP (IDR: 0x24770006)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Not an AHB-AP
+Attach to CPU failed. Executing connect under reset.
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x0000A000): APB-AP (IDR: 0x24770006)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Not an AHB-AP
+Could not find core in Coresight setup
+Error occurred: Could not connect to the target device.
+For troubleshooting steps visit: https://wiki.segger.com/J-Link_Troubleshooting
+J-Link>quit
+[stanley@greylock ~]$ cd rp2350_hacking_challenge/openocd/tcl/
+[stanley@greylock tcl]$ ../src/openocd -f interface/jlink.cfg -c "adapter speed 5000" -c "set USE_CORE 0" -f target/rp2350-riscv.cfg
+Open On-Chip Debugger 0.12.0+dev-gebec9504d (2024-09-14-03:22)
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+adapter speed: 5000 kHz
+0
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : J-Link V11 compiled Dec  4 2024 17:53:35
+Info : Hardware version: 11.00
+Info : VTarget = 3.315 V
+Info : clock speed 5000 kHz
+Info : SWD DPIDR 0x4c013477
+Info : SWD DPIDR 0x4c013477
+Error: [rp2350.dap.core0] Examination failed
+Warn : target rp2350.dap.core0 examination failed
+Info : starting gdb server for rp2350.dap.core0 on 3333
+Info : Listening on port 3333 for gdb connections
+^Cshutdown command invoked
+Error: [rp2350.dap.core0] Unsupported DTM version: -1
+Error: [rp2350.dap.core0] Could not identify target type.
+Error: BUG: refcount AP#0 still 1 at exit
+
+[stanley@greylock tcl]$ ../src/openocd -f interface/jlink.cfg -c "adapter speed 5000" -c "set USE_CORE 0" -f target/rp2350-riscv.cfg
+Open On-Chip Debugger 0.12.0+dev-gebec9504d (2024-09-14-03:22)
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+adapter speed: 5000 kHz
+0
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : J-Link V11 compiled Dec  4 2024 17:53:35
+Info : Hardware version: 11.00
+Info : VTarget = 3.315 V
+Info : clock speed 5000 kHz
+Info : SWD DPIDR 0x4c013477
+Info : [rp2350.dap.core0] datacount=1 progbufsize=2
+Info : [rp2350.dap.core0] Disabling abstract command reads from CSRs.
+Info : [rp2350.dap.core0] Disabling abstract command writes to CSRs.
+Info : [rp2350.dap.core0] Examined RISC-V core
+Info : [rp2350.dap.core0]  XLEN=32, misa=0x40901105
+Info : [rp2350.dap.core0] Examination succeed
+Info : starting gdb server for rp2350.dap.core0 on 3333
+Info : Listening on port 3333 for gdb connections
+Info : accepting 'gdb' connection on tcp/3333
+rp2350.dap.core0 halted due to debug-request.
+Info : RP2040 Flash Probe: 33554432 bytes @0x10000000, in 8192 sectors
+
+Warn : Prefer GDB command "target extended-remote :3333" instead of "target remote :3333"
+Polling target rp2350.dap.core0 failed, trying to reexamine
+Info : SWD DPIDR 0x4c013477
+Info : [rp2350.dap.core0] datacount=1 progbufsize=2
+Info : [rp2350.dap.core0] Disabling abstract command reads from CSRs.
+Info : [rp2350.dap.core0] Disabling abstract command writes to CSRs.
+Info : [rp2350.dap.core0] Examined RISC-V core
+Info : [rp2350.dap.core0]  XLEN=32, misa=0x40901105
+Info : [rp2350.dap.core0] Examination succeed
+Error: [rp2350.dap.core0] Timed out after 2s waiting for busy to go low (abstractcs=0x2001001). Increase the timeout with riscv set_command_timeout_sec.
+Warn : keep_alive() was not invoked in the 1000 ms timelimit. GDB alive packet not sent! (1913 ms). Workaround: increase "set remotetimeout" in GDB
+Error: [rp2350.dap.core0] Timed out after 2s waiting for busy to go low (abstractcs=0x2001101). Increase the timeout with riscv set_command_timeout_sec.
+Error: [rp2350.dap.core0] Unexpected error during fence execution
+Warn : [rp2350.dap.core0] Failed to write memory via program buffer.
+Warn : [rp2350.dap.core0] Failed to write memory via system bus.
+^CError: [rp2350.dap.core0] Timed out after 2s waiting for busy to go low (abstractcs=0x2001101). Increase the timeout with riscv set_command_timeout_sec.
+Error: [rp2350.dap.core0] Timed out after 2s waiting for busy to go low (abstractcs=0x2001101). Increase the timeout with riscv set_command_timeout_sec.
+Warn : [rp2350.dap.core0] Failed to write memory via abstract access.
+Error: [rp2350.dap.core0] Target rp2350.dap.core0: Failed to write memory (addr=0x400d8000)
+Error: [rp2350.dap.core0]   progbuf=failed, sysbus=failed, abstract=failed
+Warn : keep_alive() was not invoked in the 1000 ms timelimit. GDB alive packet not sent! (6000 ms). Workaround: increase "set remotetimeout" in GDB
+Info : [rp2350.dap.core0] became unavailable.
+shutdown command invoked
+Error: [rp2350.dap.core0] Timed out after 2s waiting for busy to go low (abstractcs=0x2001101). Increase the timeout with riscv set_command_timeout_sec.
+Error: [rp2350.dap.core0] Failed to flush registers. Ignoring this error.
+
+[stanley@greylock tcl]$ JLinkExe -device CORTEX-M33 -if SWD -speed 4000
+SEGGER J-Link Commander V8.12 (Compiled Dec 18 2024 15:44:32)
+DLL version V8.12, compiled Dec 18 2024 15:43:28
+
+Connecting to J-Link via USB...O.K.
+Firmware: J-Link V11 compiled Dec  4 2024 17:53:35
+Hardware version: V11.00
+J-Link uptime (since boot): 2d 05h 45m 29s
+S/N: 821010887
+License(s): GDB
+USB speed mode: High speed (480 MBit/s)
+VTref=3.328V
+
+
+Type "connect" to establish a target connection, '?' for help
+J-Link>connect
+Device "CORTEX-M33" selected.
+
+
+Connecting to target via SWD
+Found SW-DP with ID 0x4C013477
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x00002000): AHB-AP (IDR: 0x34770008)
+AP[1] (APAddr 0x00004000): AHB-AP (IDR: 0x34770008)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Core found
+AP[0]: AHB-AP ROM base: 0xE00FF000
+CPUID register: 0x411FD210. Implementer code: 0x41 (ARM)
+Feature set: Mainline
+Cache: No cache
+Found Cortex-M33 r1p0, Little endian.
+FPUnit: 8 code (BP) slots and 0 literal slots
+Security extension: implemented
+Secure debug: enabled
+CoreSight components:
+ROMTbl[0] @ E00FF000
+[0][0]: E000E000 CID B105900D PID 000BBD21 DEVARCH 47702A04 DEVTYPE 00 Cortex-M33
+[0][1]: E0001000 CID B105900D PID 000BBD21 DEVARCH 47701A02 DEVTYPE 00 DWT
+[0][2]: E0002000 CID B105900D PID 000BBD21 DEVARCH 47701A03 DEVTYPE 00 FPB
+[0][3]: E0000000 CID B105900D PID 000BBD21 DEVARCH 47701A01 DEVTYPE 43 ITM
+[0][5]: E0041000 CID B105900D PID 002BBD21 DEVARCH 47724A13 DEVTYPE 13 ETM
+[0][6]: E0042000 CID B105900D PID 000BBD21 DEVARCH 47701A14 DEVTYPE 14 CSS600-CTI
+Memory zones:
+  Zone: "Default" Description: Default access mode
+Cortex-M33 identified.
+J-Link>quit
+[stanley@greylock tcl]$ JLinkGDBServer -device CORTEX-M33 -if SWD
+SEGGER J-Link GDB Server V8.12 Command Line Version
+
+JLinkARM.dll V8.12 (DLL compiled Dec 18 2024 15:43:28)
+
+Command line: -device CORTEX-M33 -if SWD
+-----GDB Server start settings-----
+GDBInit file:                  none
+GDB Server Listening port:     2331
+SWO raw output listening port: 2332
+Terminal I/O port:             2333
+Accept remote connection:      yes
+Generate logfile:              off
+Verify download:               off
+Init regs on start:            off
+Silent mode:                   off
+Single run mode:               off
+Target connection timeout:     0 ms
+------J-Link related settings------
+J-Link Host interface:         USB
+J-Link script:                 none
+J-Link settings file:          none
+------Target related settings------
+Target device:                 CORTEX-M33
+Target device parameters:      none
+Target interface:              SWD
+Target interface speed:        4000kHz
+Target endian:                 little
+
+Connecting to J-Link...
+J-Link is connected.
+Firmware: J-Link V11 compiled Dec  4 2024 17:53:35
+Hardware: V11.00
+S/N: 821010887
+Feature(s): GDB
+Checking target voltage...
+Target voltage: 3.32 V
+Listening on TCP/IP port 2331
+Connecting to target...
+ERROR: Could not connect to target.
+Target connection failed. GDBServer will be closed...Restoring target state and closing J-Link connection...
+Shutting down...
+Could not connect to target.
+Please check power, connectioExe -device CORTEX-M33 -if SWD -speed 4000nkGDBServer -device CORTEX-M33 -if SWD
+SEGGER J-Link Commander V8.12 (Compiled Dec 18 2024 15:44:32)
+DLL version V8.12, compiled Dec 18 2024 15:43:28
+
+Connecting to J-Link via USB...O.K.
+Firmware: J-Link V11 compiled Dec  4 2024 17:53:35
+Hardware version: V11.00
+J-Link uptime (since boot): 2d 05h 46m 58s
+S/N: 821010887
+License(s): GDB
+USB speed mode: High speed (480 MBit/s)
+VTref=3.322V
+
+
+Type "connect" to establish a target connection, '?' for help
+J-Link>connect
+Device "CORTEX-M33" selected.
+
+
+Connecting to target via SWD
+Found SW-DP with ID 0x4C013477
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x0000A000): APB-AP (IDR: 0x24770006)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Not an AHB-AP
+Attach to CPU failed. Executing connect under reset.
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x0000A000): APB-AP (IDR: 0x24770006)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Not an AHB-AP
+Could not find core in Coresight setup
+Found SW-DP with ID 0x4C013477
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x0000A000): APB-AP (IDR: 0x24770006)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Not an AHB-AP
+Attach to CPU failed. Executing connect under reset.
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x0000A000): APB-AP (IDR: 0x24770006)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Not an AHB-AP
+Could not find core in Coresight setup
+Error occurred: Could not connect to the target device.
+For troubleshooting steps visit: https://wiki.segger.com/J-Link_Troubleshooting
+J-Link>

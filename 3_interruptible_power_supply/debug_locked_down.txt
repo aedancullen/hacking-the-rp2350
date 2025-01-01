@@ -1,0 +1,155 @@
+[stanley@greylock ~]$ JLinkExe -device CORTEX-M33 -if SWD -speed 4000
+SEGGER J-Link Commander V8.12 (Compiled Dec 18 2024 15:44:32)
+DLL version V8.12, compiled Dec 18 2024 15:43:28
+
+Connecting to J-Link via USB...O.K.
+Firmware: J-Link V11 compiled Dec  4 2024 17:53:35
+Hardware version: V11.00
+J-Link uptime (since boot): 1d 20h 06m 02s
+S/N: 821010887
+License(s): GDB
+USB speed mode: High speed (480 MBit/s)
+VTref=3.315V
+
+
+Type "connect" to establish a target connection, '?' for help
+J-Link>connect
+Device "CORTEX-M33" selected.
+
+
+Connecting to target via SWD
+Found SW-DP with ID 0x4C013477
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x00002000): AHB-AP (IDR: 0x34770008)
+AP[1] (APAddr 0x00004000): AHB-AP (IDR: 0x34770008)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Could not read CPUID register
+AP[1]: Skipped. Could not read CPUID register
+Attach to CPU failed. Executing connect under reset.
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x00002000): AHB-AP (IDR: 0x34770008)
+AP[1] (APAddr 0x00004000): AHB-AP (IDR: 0x34770008)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Could not read CPUID register
+AP[1]: Skipped. Could not read CPUID register
+Could not find core in Coresight setup
+Found SW-DP with ID 0x4C013477
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x00002000): AHB-AP (IDR: 0x34770008)
+AP[1] (APAddr 0x00004000): AHB-AP (IDR: 0x34770008)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Could not read CPUID register
+AP[1]: Skipped. Could not read CPUID register
+Attach to CPU failed. Executing connect under reset.
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x00002000): AHB-AP (IDR: 0x34770008)
+AP[1] (APAddr 0x00004000): AHB-AP (IDR: 0x34770008)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Could not read CPUID register
+AP[1]: Skipped. Could not read CPUID register
+Could not find core in Coresight setup
+Error occurred: Could not connect to the target device.
+For troubleshooting steps visit: https://wiki.segger.com/J-Link_Troubleshooting
+J-Link>quit
+[stanley@greylock ~]$ JLinkExe -device CORTEX-M33 -if SWD -speed 4000
+SEGGER J-Link Commander V8.12 (Compiled Dec 18 2024 15:44:32)
+DLL version V8.12, compiled Dec 18 2024 15:43:28
+
+Connecting to J-Link via USB...O.K.
+Firmware: J-Link V11 compiled Dec  4 2024 17:53:35
+Hardware version: V11.00
+J-Link uptime (since boot): 1d 20h 06m 29s
+S/N: 821010887
+License(s): GDB
+USB speed mode: High speed (480 MBit/s)
+VTref=3.315V
+
+
+Type "connect" to establish a target connection, '?' for help
+J-Link>connect
+Device "CORTEX-M33" selected.
+
+
+Connecting to target via SWD
+Found SW-DP with ID 0x4C013477
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x00002000): AHB-AP (IDR: 0x34770008)
+AP[1] (APAddr 0x00004000): AHB-AP (IDR: 0x34770008)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Could not read CPUID register
+AP[1]: Skipped. Could not read CPUID register
+Attach to CPU failed. Executing connect under reset.
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x00002000): AHB-AP (IDR: 0x34770008)
+AP[1] (APAddr 0x00004000): AHB-AP (IDR: 0x34770008)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Could not read CPUID register
+AP[1]: Skipped. Could not read CPUID register
+Could not find core in Coresight setup
+Found SW-DP with ID 0x4C013477
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x00002000): AHB-AP (IDR: 0x34770008)
+AP[1] (APAddr 0x00004000): AHB-AP (IDR: 0x34770008)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Could not read CPUID register
+AP[1]: Skipped. Could not read CPUID register
+Attach to CPU failed. Executing connect under reset.
+DPIDR: 0x4C013477
+CoreSight SoC-600 or later (DPv3 detected)
+Detecting available APs
+APSpace base (BASEPTR0): 0x00000000
+APSpace size (DPIDR1.ASIZE): 20-bit (1024 KB)
+Top-level ROM table, that describes AP map, found
+Scanning top-level ROM table and nested ones to find APs
+AP[0] (APAddr 0x00002000): AHB-AP (IDR: 0x34770008)
+AP[1] (APAddr 0x00004000): AHB-AP (IDR: 0x34770008)
+Iterating through AP map to find AHB-AP to use
+AP[0]: Skipped. Could not read CPUID register
+AP[1]: Skipped. Could not read CPUID register
+Could not find core in Coresight setup
+Error occurred: Could not connect to the target device.
+For troubleshooting steps visit: https://wiki.segger.com/J-Link_Troubleshooting
+J-Link>quit
+[stanley@greylock ~]$ 

@@ -1,0 +1,55 @@
+[stanley@greylock tcl]$ gdb
+GNU gdb (GDB) 15.2
+Copyright (C) 2024 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-pc-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word".
+(gdb) target remote :3333
+Remote debugging using :3333
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x00007640 in ?? ()
+(gdb) x/1wx 0x40120148
+0x40120148:     0x00030033
+(gdb) x/32wx 0x40137020
+0x40137020:     0x0022c0ff      0x0014ffee      0x0022c0ff      0x0014ffee
+0x40137030:     0x0022c0ff      0x0014ffee      0x0022c0ff      0x0014ffee
+0x40137040:     0x00000000      0x00000000      0x00000000      0x00000000
+0x40137050:     0x00000000      0x00000000      0x00000000      0x00000000
+0x40137060:     0x00000000      0x00000000      0x00000000      0x00000000
+0x40137070:     0x00000000      0x00000000      0x00000000      0x00000000
+0x40137080:     0x00000000      0x00000000      0x00000000      0x00000000
+0x40137090:     0x00000000      0x00000000      0x00000000      0x00000000
+(gdb) x/1wx 0x40120150
+0x40120150:     0x00000000
+(gdb) set *0x40120150 = 0x0000010f // NOTE: DEBUGEN to ALL BITS
+(gdb) x/1wx 0x40120150
+0x40120150:     0x0000010f
+(gdb) x/1wx 0x40018008
+0x40018008:     0x00000000
+(gdb) set *0x40018008 = 0x00000002 // NOTE: PSM WDSEL to OTP
+(gdb) x/1wx 0x40018008
+0x40018008:     0x00000002
+(gdb) set *0x400d8000 = 0x80000000 // NOTE: WATCHDOG TRIGGER
+Ignoring packet error, continuing...
+^CCould not read registers; remote failure reply '0E'
+(gdb) Quit
+(gdb) q
+A debugging session is active.
+
+        Inferior 1 [Remote target] will be detached.
+
+Quit anyway? (y or n) y
+Detaching from pid Remote target
+Remote communication error.  Target disconnected: error while writing: Connection reset by peer.
+[stanley@greylock tcl]$ 
