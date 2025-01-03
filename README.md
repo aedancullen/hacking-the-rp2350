@@ -1,6 +1,8 @@
 # Hacking the RP2350
 This repo contains resources used in [my talk at 38C3](https://media.ccc.de/v/38c3-hacking-the-rp2350) about solving the [RP2350 Hacking Challenge](https://github.com/raspberrypi/rp2350_hacking_challenge).
 
+[![carve_newfont.png](/misc/carve_newfont_lowres.png)](https://github.com/aedancullen/hacking-the-rp2350/tree/master/2_anti_fuse_fuse_club/carve_newfont.png)
+
 ---
 
 If you're specifically interested in code,
